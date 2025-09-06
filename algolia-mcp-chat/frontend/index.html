@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./assets/algolia.svg" type="image/x-svg" />
+    <title>Algolia MCP Chat</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-container" id="app-container">
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="chat-container">
+          <div class="chat-header">
+            <div class="logo">
+              <img
+                src="./assets/algolia.svg"
+                alt="algoliaLogo"
+                width="25"
+                height="25"
+              />
+              <h1>Algolia MCP Chat</h1>
+            </div>
+            <div class="config-btns">
+              <button class="new-chat-btn" id="newChatBtn">
+                <img
+                  src="./assets/newchat.svg"
+                  alt="newChatIcon"
+                  width="24"
+                  height="24"
+                />
+              </button>
+              <button class="config-icon" id="configIcon">
+                <img
+                  src="./assets/setting.svg"
+                  alt="settingsIcon"
+                  width="24"
+                  height="24"
+                />
+              </button>
+            </div>
+          </div>
+
+          <div class="messages-container" id="messagesContainer">
+            <!-- Welcome message will be added by JavaScript -->
+            <div id="messageContent"></div>
+          </div>
+
+          <div class="chat-input-area">
+            <form id="chatForm" class="chat-form">
+              <div class="input-container">
+                <textarea
+                  id="messageInput"
+                  class="message-input"
+                  placeholder="Send a message..."
+                  rows="1"
+                ></textarea>
+                <button type="submit" class="send-button" id="sendButton">
+                  <img
+                    src="./assets/send.svg"
+                    class="send-icon"
+                    alt="send-icon"
+                  />
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      <!-- Configuration Panel (Hidden by default) -->
+      <div class="config-modal-panel hidden" id="configPanel">
+        <div class="modal-content">
+          <button class="modal-close-btn" id="configPanelClose">
+            <img src="./assets/close.svg" alt="close" width="25" height="25" />
+          </button>
+
+          <h3>MCP Configuration</h3>
+          <div class="config-modal-grid">
+            <!-- <div class="config-item">
+              <label>Algolia App ID</label>
+              <code></code>
+            </div>
+            <div class="config-item">
+              <label>Index Name</label>
+              <code></code>
+            </div> -->
+            <div class="config-item">
+              <label>Enabled Tools</label>
+              <div class="tools-list">
+                <span class="status status--success">search</span>
+                <span class="status status--success">analytics</span>
+              </div>
+            </div>
+            <div class="config-item">
+              <label>LLM Provider</label>
+              <code>Groq - Llama 3 8B</code>
+            </div>
+          </div>
+          <div class="sample-queries">
+            <h4>Sample Queries</h4>
+            <div class="query-buttons" id="sampleQueries">
+              <!-- Sample query buttons will be inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

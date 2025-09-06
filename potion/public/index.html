@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Notes Assistant</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>Potion</h1>
+        </div>
+        <div class="header-btn" id="header-btn">
+          <button id="activateAI" class="start-ai-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#ffffff"
+              stroke-width="1.25"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="margin-right: 8px"
+            >
+              <path d="M6 21l15 -15l-3 -3l-15 15l3 3" />
+              <path d="M15 6l3 3" />
+              <path
+                d="M9 3a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"
+              />
+              <path
+                d="M19 13a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"
+              />
+            </svg>
+
+            Initiate AI Magic
+          </button>
+          <button id="disableAI" class="add-note-btn" style="display: none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#ffffff"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="margin-right: 8px"
+            >
+              <path
+                d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"
+              />
+            </svg>
+            Stop AI
+          </button>
+          <button id="openAddNoteModal" class="add-note-btn">
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              style="margin-right: 8px"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"
+              ></path>
+            </svg>
+            Add Note
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Notes Canvas -->
+    <div class="notes-canvas">
+      <div id="notesContainer">
+        <!-- Notes will be populated here -->
+     
+      </div>
+
+      <!-- Loading State -->
+      <div id="loadingNotes" class="loading hidden">
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    <!-- Add Note Modal -->
+    <div id="addNoteModal" class="modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Create New Note</h2>
+          <button id="closeAddNoteModal" class="close-btn">&times;</button>
+        </div>
+        <form id="noteForm">
+          <div class="form-group">
+            <input
+              type="text"
+              id="noteTitle"
+              placeholder="Note title..."
+              class="form-input"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <select id="noteCategory" class="form-select">
+              <option value="">Select category...</option>
+              <option value="class">Class Notes</option>
+              <option value="meeting">Meeting Minutes</option>
+              <option value="personal">Personal</option>
+              <option value="research">Research</option>
+              <option value="ideas">Ideas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea
+              id="noteContent"
+              placeholder="Write your note here..."
+              class="form-textarea"
+              rows="6"
+              style="resize: none"
+              required
+            ></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Note</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- View Note Modal (NEW) -->
+    <div id="viewNoteModal" class="modal-overlay">
+      <div class="modal modal-large">
+        <div class="modal-header">
+          <h2 id="viewNoteTitle" class="modal-title">Note Title</h2>
+          <button id="closeViewNoteModal" class="close-btn">&times;</button>
+        </div>
+
+        <div class="view-note-content">
+          <div class="note-meta">
+            <span id="viewNoteCategory" class="note-category-display"></span>
+            <span id="viewNoteDate" class="note-date"></span>
+          </div>
+
+          <div id="viewNoteContentText" class="note-content-display">
+            <!-- Note content will be displayed here -->
+          </div>
+
+          <!-- AI Summary Section -->
+          <div id="viewNoteSummary" class="note-summary hidden">
+            <div class="summary-content">
+              <h4>AI Summary:</h4>
+              <p id="summaryText"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="view-note-actions">
+          <button id="generateSummaryBtn" class="btn btn-ai">
+            Get AI Summary
+          </button>
+          <button id="editNoteFromView" class="btn btn-primary">
+            Edit Note
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Note Modal -->
+    <div id="editNoteModal" class="modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Edit Note</h2>
+          <button id="closeEditNoteModal" class="close-btn">&times;</button>
+        </div>
+        <form id="editNoteForm">
+          <input type="hidden" id="editNoteId" />
+          <div class="form-group">
+            <input
+              type="text"
+              id="editNoteTitle"
+              placeholder="Note title..."
+              class="form-input"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <select id="editNoteCategory" class="form-select">
+              <option value="">Select category...</option>
+              <option value="class">Class Notes</option>
+              <option value="meeting">Meeting Minutes</option>
+              <option value="personal">Personal</option>
+              <option value="research">Research</option>
+              <option value="ideas">Ideas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea
+              id="editNoteContent"
+              placeholder="Write your note here..."
+              class="form-textarea"
+              rows="8"
+              required
+              style="resize: none"
+            ></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update Note</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- AI Search -->
+    <div
+      class="search-bar-container"
+      id="search-bar-container"
+      style="display: none"
+    >
+      <div class="search-bar">
+        <div class="search-icon">
+          <svg
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            ></path>
+          </svg>
+        </div>
+        <input
+          type="search"
+          name="note-search"
+          id="note-search-input"
+          placeholder="Search notes with AI... (Press Enter)"
+          class="search-input-bottom"
+        />
+        <div class="search-status-indicator" id="searchStatusIndicator">
+          <div class="pulse-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ask AI Button -->
+    <button id="askAiBtn" class="ask-ai-btn">
+      <svg
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+        ></path>
+      </svg>
+    </button>
+
+    <!-- AI Sidebar -->
+    <div id="aiSidebar" class="ai-sidebar">
+      <div class="ai-sidebar-header">
+        <h3 class="ai-sidebar-title">AI Assistant</h3>
+        <button id="closeAiSidebar" class="close-btn">&times;</button>
+      </div>
+
+      <div id="aiMessages" class="ai-messages">
+        <div class="chat-message ai">
+          <p>
+            Hello! I'm your AI assistant. I can help you summarize notes, answer
+            questions about your notes, and provide insights. What would you
+            like to know?
+          </p>
+        </div>
+      </div>
+
+      <!-- Typing Indicator -->
+      <!-- <div id="typingIndicator" class="chat-message ai hidden">
+        <div class="typing-indicator">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <span style="margin-left: 8px; font-size: 0.875rem"
+            >AI is thinking...</span
+          >
+        </div>
+      </div> -->
+
+      <div class="ai-input-area">
+        <div class="ai-input-container">
+          <input
+            type="text"
+            id="aiInput"
+            placeholder="Ask about your notes..."
+            class="ai-input"
+          />
+          <button id="sendAiMessage" class="send-btn">
+            <svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  mindsdb:
+    image: mindsdb/mindsdb
+    container_name: mindsdb_container
+    environment:
+      - MINDSDB_APIS=http,mysql
+    ports:
+      - "47334:47334"
+      - "47335:47335"

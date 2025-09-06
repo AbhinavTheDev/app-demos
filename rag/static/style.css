@@ -1,0 +1,145 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  overflow-x: hidden;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.sidebar {
+  padding: 10px;
+  width: 25%;
+  background-color: rgb(219, 219, 219);
+  transition: transform 0.3s ease;
+}
+
+.add {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(112, 112, 112);
+}
+.add button {
+  width: 40%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(112, 112, 112);
+}
+
+li {
+  background-color: #04ff0030;
+  padding: 5px;
+  margin-bottom: 5px;
+  border: 2px solid #15f011ea;
+  border-radius: 5px;
+  word-wrap: break-word;
+}
+.container {
+  width: 75%;
+  /* background-color: brown; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: width 0.3s ease;
+}
+
+.chat-box {
+  width: 60%;
+  height: 70%;
+  border: 1px solid rgb(112, 112, 112);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  overflow-y: auto;
+}
+
+.input-box {
+  width: 60%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-box input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(112, 112, 112);
+}
+
+.input-box button {
+  width: 15%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(112, 112, 112);
+}
+button:enabled {
+  background-color: rgb(30, 30, 30);
+  color: white;
+}
+/* Mobile menu toggle button */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 100;
+  background-color: rgb(30, 30, 30);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 75%;
+    z-index: 99;
+    transform: translateX(-100%);
+  }
+  .sidebar .title {
+    margin-top: 3rem;
+  }
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+
+  .container {
+    width: 100%;
+    height: 90vh;
+    padding: 10px;
+    margin-top: 30px;
+  }
+
+  .chat-box {
+    width: 90%;
+    height: 100%;
+  }
+
+  .input-box {
+    width: 90%;
+  }
+}
