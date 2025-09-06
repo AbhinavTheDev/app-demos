@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://fonts.gstatic.com/s/e/notoemoji/latest/1f604/512.gif"
+      type="image/x-icon"
+    />
+    <title>Moody Fun Fact</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+        margin: 0;
+      }
+
+      .container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .Sad {
+        background-color: #a0c4ff;
+        color: #fff;
+      }
+
+      .Curious {
+        background-color: #ffb703;
+        color: #fff;
+      }
+
+      .Tense {
+        background-color: #9d4edd;
+        color: #fff;
+      }
+
+      .Frustrated {
+        background-color: #f87171;
+        color: #fff;
+      }
+
+      .fact-container {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+
+      .fact {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      .category {
+        font-size: 0.9em;
+        color: #777;
+        font-style: italic;
+      }
+      footer {
+        background-color: #333; /* Dark background for the footer */
+        color: #fff;
+        text-align: center;
+        padding: 1px 0; /* Add some padding */
+        position: fixed; /* Fix the footer to the bottom */
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+
+      .footer-text {
+        font-size: 0.9em;
+      }
+
+      @media (max-width: 600px) {
+        /* Adjust the breakpoint as needed */
+        .container {
+          padding: 20px; /* Reduce padding on smaller screens */
+        }
+
+        .button-container {
+          flex-direction: column; /* Stack buttons vertically */
+          gap: 10px;
+        }
+
+        button {
+          font-size: 16px; /* Reduce font size */
+          padding: 12px 20px; /* Adjust padding */
+        }
+
+        .fact {
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Fun Fact to Cheer You! 😆</h1>
+
+      <div class="button-container">
+        <button class="Sad">
+          Sad
+          <picture>
+            <source
+              srcset="
+                https://fonts.gstatic.com/s/e/notoemoji/latest/1f614/512.webp
+              "
+              type="image/webp"
+            />
+            <img
+              src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f614/512.gif"
+              alt="😔"
+              width="32"
+              height="32"
+            />
+          </picture>
+        </button>
+        <button class="Curious">
+          Curious
+          <picture>
+            <source
+              srcset="
+                https://fonts.gstatic.com/s/e/notoemoji/latest/1f914/512.webp
+              "
+              type="image/webp"
+            />
+            <img
+              src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f914/512.gif"
+              alt="🤔"
+              width="32"
+              height="32"
+            />
+          </picture>
+        </button>
+        <button class="Tense">
+          Tense
+          <picture>
+            <source
+              srcset="
+                https://fonts.gstatic.com/s/e/notoemoji/latest/1f62c/512.webp
+              "
+              type="image/webp"
+            />
+            <img
+              src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f62c/512.gif"
+              alt="😬"
+              width="32"
+              height="32"
+            />
+          </picture>
+        </button>
+        <button class="Frustrated">
+          Frustrated
+          <picture>
+            <source
+              srcset="
+                https://fonts.gstatic.com/s/e/notoemoji/latest/1f620/512.webp
+              "
+              type="image/webp"
+            />
+            <img
+              src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f620/512.gif"
+              alt="😠"
+              width="32"
+              height="32"
+            />
+          </picture>
+        </button>
+      </div>
+
+      <div class="fact-container">
+        <p class="fact">Click a button to see a fun fact!</p>
+        <p class="category"></p>
+      </div>
+    </div>
+    <footer>
+      <p class="footer-text">Made with ❤️ by PiecesAI</p>
+    </footer>
+
+    <script>
+      const facts = {
+        Sad: [
+          {
+            fact: "If you feel insignificant, remember that the chance of you being born is 1 in 400 trillion!  You're one of a kind! 😊",
+            category: "Probability",
+          },
+          {
+            fact: "It's okay to feel blue, even the sky experiences rainy days. But just like the sun always returns, so will your happiness. ☀️",
+            category: "Weather",
+          },
+          {
+            fact: "If you're feeling small, remember that ants can lift objects up to 50 times their own body weight! 💪",
+            category: "Ants",
+          },
+          {
+            fact: "Even though it's the largest animal on Earth, the blue whale's throat is only about the size of a dinner plate. 🐋",
+            category: "Animals",
+          },
+        ],
+        Curious: [
+          {
+            fact: "Ever wondered about the largest living structure on Earth? It's the Great Barrier Reef, visible even from outer space! 🪸🚀",
+            category: "Nature",
+          },
+          {
+            fact: "Want to know something cool about butterflies? They taste with their feet! 🦋🦶",
+            category: "Animals",
+          },
+          {
+            fact: "Did you know that a group of owls is called a parliament? 🦉",
+            category: "Animals",
+          },
+          {
+            fact: "The Earth isn't perfectly round; it actually bulges at the equator. 🌎",
+            category: "Planet Earth",
+          },
+          {
+            fact: "Ants can't actually chew their food. They move their jaws sideways like scissors to extract nutrients. 🐜✂️",
+            category: "Ants",
+          },
+        ],
+        Tense: [
+          {
+            fact: "Take a deep breath, did you know?  A human being can survive an average of 20 days without food but only 3 days without water. 💧 Stay hydrated! ",
+            category: "Human Body",
+          },
+          {
+            fact: "Feeling overwhelmed? A goldfish actually has a memory span of only a few seconds!  Maybe try forgetting your worries for a bit! 🐠",
+            category: "Animals",
+          },
+          {
+            fact: "Looking for a stress reliever?  A single drop of water takes about 90 days to travel the entire Mississippi River. 💧",
+            category: "Nature",
+          },
+          {
+            fact: "Feeling lost?  The Earth rotates at about 1,000 miles per hour, but revolves around the sun at 67,000 miles per hour! 💫",
+            category: "Planet Earth",
+          },
+        ],
+        Frustrated: [
+          {
+            fact: "Frustrated with a problem? Remember that a group of larks is called an exaltation!  🐦",
+            category: "Animals",
+          },
+          {
+            fact: "It takes about 8 minutes for light from the Sun to reach Earth. So even if something seems dark now, light is on its way! ☀️",
+            category: "Planet Earth",
+          },
+          {
+            fact: "Ant colonies can have specialized roles, including farmers that cultivate fungus for food! 🍄🐜",
+            category: "Ants",
+          },
+          {
+            fact: "Having a 'bad hair day'?  Well, guess what, polar bears have hollow hair, which helps them stay warm but probably means they never have a good hair day!  🐻‍❄️",
+            category: "Animals",
+          },
+          {
+            fact: "Did you know that the population of the earth is about 8 billion people? That's 8 billion unique individuals, each with their own story.  You're not alone! 🌎",
+            category: "Planet Earth",
+          },
+        ],
+      };
+      const buttons = document.querySelectorAll("button");
+      const factContainer = document.querySelector(".fact-container");
+      const factElement = document.querySelector(".fact");
+      const categoryElement = document.querySelector(".category");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const mood = button.classList[0];
+          const randomFact =
+            facts[mood][Math.floor(Math.random() * facts[mood].length)];
+
+          factElement.textContent = randomFact.fact;
+          categoryElement.textContent = `Category: ${randomFact.category}`;
+
+          // Optional: Add some animations or visual feedback
+          factContainer.style.backgroundColor = "#e9f5d9"; // Light green for a positive feel
+          factContainer.style.borderColor = "#4ade80"; // Green border
+        });
+      });
+    </script>
+  </body>
+</html>
